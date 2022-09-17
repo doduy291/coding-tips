@@ -1,0 +1,4 @@
+@basicUrl = http://localhost:8000/api
+
+# Get All Example
+GET {{basicUrl}}/example?team=teamA&stime=0&nonce=0&signature=signature

@@ -1,0 +1,25 @@
+# dependencies
+node_modules
+/node_modules
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+
+# Ignore logs
+*.log
+**/logs
+
+# typescript
+*.tsbuildinfo
+
+# IDE specific files
+.idea/
+.vscode/
+
+# env files
+.env
+.env*.local

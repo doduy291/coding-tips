@@ -1,0 +1,19 @@
+# 1. Specify the version for docker-compose.yml
+version: "3.8"
+
+# 2. Generate the services needed
+services:
+  redis:
+    container_name: "redis"
+    image: redis:6.2.7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    # Add a custom password (optional)
+    command: redis-server
+    # Persistent storage
+    volumes:
+      - redis_data:/data
+volumes:
+  redis_data:
+    driver: local
