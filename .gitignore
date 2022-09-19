@@ -21,8 +21,8 @@ node_modules
 .vscode/
 
 # env files
-.env
-.env*.local
+# .env
+# .env*.local
 
 # docker data
 .docker
