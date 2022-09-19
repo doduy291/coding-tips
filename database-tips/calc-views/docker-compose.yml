@@ -6,14 +6,24 @@ services:
   redis:
     container_name: "redis"
     image: redis:6.2.7-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - "6379:6379"
     # Add a custom password (optional)
     command: redis-server
-    # Persistent storage
+    # Persistent storage (Data persistent)
     volumes:
-      - redis_data:/data
-volumes:
-  redis_data:
-    driver: local
+      - .docker/data/redis:/data
+#
+### Be able to persist data in Docker UI by:
+#   redis:
+#     container_name: "redis"
+#     image: redis:6.2.7-alpine
+#     restart: unless-stopped
+#     ports:
+#       - "6379:6379"
+#     command: redis-server
+#     volumes:
+#       - redis-data:/data
+# volumes:
+#   redis-data:
