@@ -1,4 +1,4 @@
-## Ways to secure Docker app
+# Ways to secure Docker app
 
 ### Docker network
 
@@ -158,7 +158,7 @@ CMD ["pm2-runtime", "ecosystem.config.js", "--env", "production"]
 
 > "node:node" user is default user that is created in app
 
-Or, we can create new own user like this content
+**Or, we can create new own user like this content**
 
 ```bash
 ...
@@ -205,4 +205,5 @@ $ docker-compose up -d
 ## Reference
 
 https://viblo.asia/p/bao-mat-ung-dung-docker-nodejs-mongo-redis-GrLZDaaVlk0
+
 His github: https://github.com/maitrungduc1410
