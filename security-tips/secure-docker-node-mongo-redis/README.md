@@ -190,6 +190,19 @@ $ ls -l
 $ cat /etc/passwd
 ```
 
+## Install and run
+
+> Make sure you installed `Docker`
+
+```bash
+# Build image
+$ docker build -t <YOUR_NAME_IMAGE>:node .
+
+# Build container
+$ docker-compose up -d
+```
+
 ## Reference
 
 https://viblo.asia/p/bao-mat-ung-dung-docker-nodejs-mongo-redis-GrLZDaaVlk0
+His github: https://github.com/maitrungduc1410
