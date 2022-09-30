@@ -40,10 +40,12 @@ EXPOSE 8000
 ### Build test
 
 - Before:
-  <img src="img-1.png" alt="Click to see the source" />
+
+<img src="img-1.png" alt="Click to see the source" />
 
 - After:
-  <img src="img-2.png" alt="Click to see the source" />
+
+<img src="img-2.png" alt="Click to see the source" />
 
 ## Run local
 
