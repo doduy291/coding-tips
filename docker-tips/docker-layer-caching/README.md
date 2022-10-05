@@ -51,13 +51,11 @@ EXPOSE 8000
 
 ```bash
 # Build container and run
-$ docker-compose -f docker-compose.dev.yml up
+$ docker-compose up
 ```
 
 ## Reference
 
-https://viblo.asia/p/tang-toc-do-build-va-toi-gian-docker-image-Eb85oODB52G
-
-https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
-
-https://docs.semaphoreci.com/ci-cd-environment/docker-layer-caching/
+https://viblo.asia/p/tang-toc-do-build-va-toi-gian-docker-image-Eb85oODB52G <br />
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/ <br />
+https://docs.semaphoreci.com/ci-cd-environment/docker-layer-caching/ <br />
