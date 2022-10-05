@@ -2,7 +2,8 @@ version: "3.8"
 services:
   app:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
+      target: development
       context: .
     ports:
       - "8000:8000"
