@@ -28,4 +28,5 @@ $ show processlist;
 
 ## Some information
 
-https://stackoverflow.com/questions/45522907/how-does-connectionlimit-work-in-node-mysql
+https://stackoverflow.com/questions/45522907/how-does-connectionlimit-work-in-node-mysql <br />
+https://www.prisma.io/dataguide/database-tools/connection-pooling#what-is-connection-pooling
