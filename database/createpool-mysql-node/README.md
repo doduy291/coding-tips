@@ -25,3 +25,7 @@ $ Enter password: password
 # Test after sending request
 $ show processlist;
 ```
+
+## Some information
+
+https://stackoverflow.com/questions/45522907/how-does-connectionlimit-work-in-node-mysql
