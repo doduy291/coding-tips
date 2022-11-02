@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // * The correct way to get API request with useEffect* //
@@ -8,9 +8,9 @@ interface User {
   username: string;
   email: string;
 }
-const User = () => {
+const Subscription = () => {
   const [user, setUser] = useState<User>({} as User);
-  const id = useLocation().pathname.split("/")[2];
+  const id = useLocation().pathname.split("/")[3];
 
   useEffect(() => {
     let unsubcribe = false;
@@ -34,12 +34,11 @@ const User = () => {
       <p>Name: {user?.name}</p>
       <p>Username: {user?.username}</p>
       <p>Email: {user?.email}</p>
-      <Link to="/user/1">User 1</Link>
-      <Link to="/user/2">User 2</Link>
-      <Link to="/user/3">User 3</Link>
-      <Link to="/">hOME</Link>
+      <Link to="/cancel-fetching/subscription/1">User 1</Link>
+      <Link to="/cancel-fetching/subscription/2">User 2</Link>
+      <Link to="/cancel-fetching/subscription/3">User 3</Link>
     </div>
   );
 };
 
-export default User;
+export default Subscription;
