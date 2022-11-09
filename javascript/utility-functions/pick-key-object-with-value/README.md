@@ -1,3 +1,4 @@
+```js
 const picker = (obj, keys) => {
   const result = {};
   for (const propertyName in obj) {
@@ -9,4 +10,7 @@ const picker = (obj, keys) => {
 };
 const obj = { name: "test", email: "test", address: "name" };
 const keys = ["name", "email"];
+
 console.log(picker(obj, keys));
+// Output: { name: 'test', email: 'test' }
+```
