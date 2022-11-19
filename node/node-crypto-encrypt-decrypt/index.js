@@ -45,3 +45,6 @@ async function message(msg) {
 }
 
 message("Yay!!! CRYPTO");
+
+// Reference more
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt
