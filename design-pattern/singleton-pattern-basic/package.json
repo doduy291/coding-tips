@@ -1,0 +1,15 @@
+{
+  "name": "singleton-pattern-basic",
+  "version": "1.0.0",
+  "description": "Singleton is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance.",
+  "main": "example-realistic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^6.6.2"
+  }
+}
