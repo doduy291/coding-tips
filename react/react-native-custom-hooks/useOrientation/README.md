@@ -27,7 +27,7 @@ export default useOrientation;
 const orientation = useOrientation();
 
 // API
-orientation.width <br />
-orientation.height <br />
-orientation.isPortait
+orientation.width;
+orientation.height;
+orientation.isPortait;
 ```
