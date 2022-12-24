@@ -17,7 +17,6 @@ app.use(
       return compression.filter(req, res);
     },
   }),
-  }),
 );
 
 app.get("/", (req, res) => {
