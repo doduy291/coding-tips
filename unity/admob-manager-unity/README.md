@@ -24,7 +24,10 @@
 ### Android
 
 Sometimes, we cannot display admob after running build version on Android
-**Try following the below steps:**
+**1. java.lang.unsupportedoperationexception**
+<img src="./img/java.lang.unsupportedoperationexception_1.jpg" alt="Click to see the source" />
+<br>
+Try following the below steps:
 
 - Delete folder: **<PROJECT_FOLDER>\Library\Bee\Android**
 - **Edit > Project Settings > Player >**
