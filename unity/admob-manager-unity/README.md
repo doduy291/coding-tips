@@ -26,7 +26,7 @@
 Sometimes, we cannot display admob after running build version on Android
 <br>
 
-1. **java.lang.unsupportedoperationexception**
+#### **java.lang.unsupportedoperationexception**
 
 <kbd><img src="./img/java.lang.unsupportedoperationexception_1.jpg" alt="Click to see the source" /></kbd>
 
