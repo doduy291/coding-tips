@@ -25,7 +25,7 @@ $ adb logcat -s "FA","FA-SVC"
 $ adb shell setprop debug.firebase.analytics.app .none
 ```
 
-#### 3. Check Debug
+#### Step 3: Check Debug
 
 1. Build your project and run it on any device
 2. In Firebase console, open your project
