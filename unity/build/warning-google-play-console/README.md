@@ -21,7 +21,6 @@ dependencies {
 1. Open **Project Settings** > **Player** > **Android** Tab > **Publishing Settings** > Enable **Custom Launcher Gradle Template**, **Use R8** and **Release**.
 2. Open your gradle file at path `<PROJECT_FOLDER>\Assets\Plugins\Android\launcherTemplate.gradle` and supplement like this:
 
-<br>
 **Reference**: https://developer.android.com/build/shrink-code#shrink-resources
 
 ```js
@@ -42,8 +41,6 @@ android {
 
 - Back to **Project Settings** > **Player** > **Android** Tab > **Publishing Settings** > Enable **Custom Proguard File**
 - Open your proguard file at path `<PROJECT_FOLDER>\Assets\Plugins\Android\proguard-user.txt` and supplement like this:
-
-Reason:
 
 ```js
 # For Google Play Services
@@ -77,3 +74,5 @@ Reason:
 ```
 
 ### This App Bundle contains native code, and you've not uploaded debug symbols. We recommend you upload a symbol file to make your crashes and ANRs easier to analyze and debug.
+
+Tutorial: https://www.youtube.com/watch?v=UXl_C3ZnRLc&ab_channel=CocoCode
