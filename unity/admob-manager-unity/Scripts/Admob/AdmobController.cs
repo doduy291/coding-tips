@@ -226,6 +226,12 @@ public class AdmobController : MonoBehaviour
         string adUnitId = "unexpected_platform";
 #endif
 
+        // Clean up the old ad before loading a new one.
+        if (_rewardedAd != null)
+        {
+            _rewardedAd.Destroy();         
+        }
+
         // create new rewarded ad instance
         RewardedAd.Load(adUnitId, CreateAdRequest(),
             (RewardedAd ad, LoadAdError loadError) =>
@@ -309,6 +315,11 @@ public class AdmobController : MonoBehaviour
         string adUnitId = "unexpected_platform";
 #endif
 
+        // Clean up the old ad before loading a new one.
+        if (_rewardedInterstitialAd != null)
+        {
+            _rewardedInterstitialAd.Destroy();
+        }
         // Create a rewarded interstitial.
         RewardedInterstitialAd.Load(adUnitId, CreateAdRequest(),
             (RewardedInterstitialAd ad, LoadAdError loadError) =>
