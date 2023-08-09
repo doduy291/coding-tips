@@ -58,7 +58,7 @@ public class AdmobController : MonoBehaviour
         // Clean up banner before reusing
         if (_bannerView != null)
         {
-            _bannerView.Destroy();
+            DestroyBannerAd();
         }
 
         // Create a 320x50 banner at top of the screen
@@ -134,7 +134,7 @@ public class AdmobController : MonoBehaviour
         // Clean up interstitial before using it
         if (_interstitialAd != null)
         {
-            _interstitialAd.Destroy();
+            DestroyInterstitialAd();
         }
 
         // Load an interstitial ad
@@ -207,6 +207,7 @@ public class AdmobController : MonoBehaviour
         if (_interstitialAd != null)
         {
             _interstitialAd.Destroy();
+            _interstitialAd = null;
         }
     }
     #endregion
@@ -229,7 +230,7 @@ public class AdmobController : MonoBehaviour
         // Clean up the old ad before loading a new one.
         if (_rewardedAd != null)
         {
-            _rewardedAd.Destroy();         
+            DestroyRewardedAd();      
         }
 
         // create new rewarded ad instance
@@ -285,6 +286,14 @@ public class AdmobController : MonoBehaviour
             });
     }
 
+    public void DestroyRewardedAd() {
+        if (_rewardedAd != null)
+        {
+            _rewardedAd.Destroy();
+            _rewardedAd = null;
+        }
+    }
+
     public void ShowRewardedAd()
     {
         if (_rewardedAd != null)
@@ -318,7 +327,7 @@ public class AdmobController : MonoBehaviour
         // Clean up the old ad before loading a new one.
         if (_rewardedInterstitialAd != null)
         {
-            _rewardedInterstitialAd.Destroy();
+            DestroyRewardedInterstitialAd();
         }
         // Create a rewarded interstitial.
         RewardedInterstitialAd.Load(adUnitId, CreateAdRequest(),
@@ -371,6 +380,15 @@ public class AdmobController : MonoBehaviour
                     Debug.Log(msg);
                 };
             });
+    }
+
+    public void DestroyRewardedInterstitialAd()
+    {
+        if (_rewardedInterstitialAd != null)
+        {
+            _rewardedInterstitialAd.Destroy();
+            _rewardedInterstitialAd = null;
+        }
     }
 
     public void ShowRewardedInterstitialAd()
