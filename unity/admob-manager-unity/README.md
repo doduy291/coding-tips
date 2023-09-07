@@ -44,3 +44,8 @@ Try following the below steps:
     - Checkbox **Custom Gradle Properties Template**
 - **Assets > External Dependency Manager > Android Resolver > Force Resolve**
 - Build again
+
+## Usage
+
+- (old)
+- (new)
