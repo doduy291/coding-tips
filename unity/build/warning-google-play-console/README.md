@@ -1,6 +1,6 @@
 # Fix warnings on Google Play Console built in **Unity**
 
-- My Version: `Unity 2021.3.12f`
+- My Version: `Unity 2021.3.12f` - `Unity 2022.3.2f1`
 
 # Contents
 
@@ -19,6 +19,10 @@ dependencies {
 ### There is no deobfuscation file associated with this App Bundle. If you use obfuscated code (R8/proguard), uploading a deobfuscation file will make crashes and ANRs easier to analyze and debug. Using R8/proguard can help reduce app size.
 
 1. Open **Project Settings** > **Player** > **Android** Tab > **Publishing Settings** > Enable **Custom Launcher Gradle Template**, **Use R8** and **Release**.
+
+> ⚠️ (For the higher Unity version)
+> At the higher Unity versions, R8 will be deprecated. So make sure `android.enableR8=**MINIFY_WITH_R_EIGHT**` in `gradleTemplate.properties` removed to prevent getting build error.
+
 2. Open your gradle file at path `<PROJECT_FOLDER>\Assets\Plugins\Android\launcherTemplate.gradle` and supplement like this:
 
 **Reference**: https://developer.android.com/build/shrink-code#shrink-resources
