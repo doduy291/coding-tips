@@ -17,6 +17,13 @@ namespace IAP
 
         IGooglePlayStoreExtensions m_GooglePlayStoreExtensions;
 
+        /* 
+            In general, if you are initializing the dictionary with a small number of predefined key/value pairs, 
+            the initializer syntax can be more concise. 
+            If you need to dynamically add key/value pairs based on certain conditions or during runtime, 
+            explicit method calls like Add might be more suitable. (https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2.add?view=net-8.0)
+        */
+        // ====> This is intializer syntax <====
         public static Dictionary<string, InAppProduct> inAppProducts = new Dictionary<string, InAppProduct>() {
             // Gold
             {"gold_1500", new InAppProduct("gold_1500", ProductType.Consumable)},
@@ -40,6 +47,7 @@ namespace IAP
             {"p6", new InAppProduct("p6", ProductType.Consumable)},
         };
 
+
         public UnityEvent IAPEvents;
 
         private void Awake()
@@ -52,7 +60,6 @@ namespace IAP
             {
                 Instance = this;
                 DontDestroyOnLoad(this);
-                inAppProducts.Add("gold_1500", new InAppProduct("gold_1500", ProductType.Consumable));
             }
         }
 
