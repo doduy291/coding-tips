@@ -4,6 +4,7 @@ using UnityEngine.Purchasing;
 using Unity.Services.Core;
 using UnityEngine.Events;
 using UnityEngine.Purchasing.Extension;
+using System.Collections.Generic;
 
 namespace IAP
 {
@@ -16,13 +17,28 @@ namespace IAP
 
         IGooglePlayStoreExtensions m_GooglePlayStoreExtensions;
 
-        public static string GEM_100 = "gem_100";
-        public static string GEM_250 = "gem_250";
-        public static string GEM_600 = "gem_600";
-        public static string GEM_1000 = "gem_1000";
-        public static string GEM_2600 = "gem_2600";
-        public static string GEM_5000 = "gem_5000";
-        public static string NO_ADS = "no_ads";
+        public static Dictionary<string, InAppProduct> inAppProducts = new Dictionary<string, InAppProduct>() {
+            // Gold
+            {"gold_1500", new InAppProduct("gold_1500", ProductType.Consumable)},
+            {"gold_4000", new InAppProduct("gold_4000", ProductType.Consumable)},
+            {"gold_17500", new InAppProduct("gold_17500", ProductType.Consumable)},
+            // Gem
+            {"gem_100", new InAppProduct("gem_100", ProductType.Consumable)},
+            {"gem_250", new InAppProduct("gem_250", ProductType.Consumable)},
+            {"gem_600", new InAppProduct("gem_600", ProductType.Consumable)},
+            {"gem_1000", new InAppProduct("gem_1000", ProductType.Consumable)},
+            {"gem_2600", new InAppProduct("gem_2600", ProductType.Consumable)},
+            {"gem_5000", new InAppProduct("gem_5000", ProductType.Consumable)},
+            // Ads
+            //{"NO_ADS", new InAppProductValue("no_ads", ProductType.Subscription)},
+            // Packages
+            {"p1", new InAppProduct("p1", ProductType.Consumable)},
+            {"p2", new InAppProduct("p2", ProductType.Consumable)},
+            {"p3", new InAppProduct("p3", ProductType.Consumable)},
+            {"p4", new InAppProduct("p4", ProductType.Consumable)},
+            {"p5", new InAppProduct("p5", ProductType.Consumable)},
+            {"p6", new InAppProduct("p6", ProductType.Consumable)},
+        };
 
         public UnityEvent IAPEvents;
 
@@ -36,6 +52,7 @@ namespace IAP
             {
                 Instance = this;
                 DontDestroyOnLoad(this);
+                inAppProducts.Add("gold_1500", new InAppProduct("gold_1500", ProductType.Consumable));
             }
         }
 
@@ -54,15 +71,11 @@ namespace IAP
 
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-            // Gem
-            builder.AddProduct(GEM_100, ProductType.Consumable);
-            builder.AddProduct(GEM_250, ProductType.Consumable);
-            builder.AddProduct(GEM_600, ProductType.Consumable);
-            builder.AddProduct(GEM_1000, ProductType.Consumable);
-            builder.AddProduct(GEM_2600, ProductType.Consumable);
-            builder.AddProduct(GEM_5000, ProductType.Consumable);
-            // No Ads
-            builder.AddProduct(NO_ADS, ProductType.NonConsumable);
+            foreach (string key in inAppProducts.Keys)
+            {
+                InAppProduct IAPValue = inAppProducts[key];
+                builder.AddProduct(IAPValue.productId, IAPValue.type);
+            }
 
             UnityPurchasing.Initialize(this, builder);
         }
@@ -132,6 +145,7 @@ namespace IAP
 
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
+            InAppProduct result;
             purchasedProduct = args.purchasedProduct;
 
             if (m_GooglePlayStoreExtensions.IsPurchasedProductDeferred(purchasedProduct))
@@ -143,45 +157,13 @@ namespace IAP
                 return PurchaseProcessingResult.Pending;
             }
 
-            if (purchasedProduct.definition.id == GEM_100)
+            if (inAppProducts.TryGetValue(purchasedProduct.definition.id, out result))
             {
-                Debug.Log("Purchase: GEM 100");
-                IAPEvents?.Invoke();
-            }
-
-            if (purchasedProduct.definition.id == GEM_250)
-            {
-                Debug.Log("Purchase: GEM 250");
-                IAPEvents?.Invoke();
-            }
-
-            if (purchasedProduct.definition.id == GEM_600)
-            {
-                Debug.Log("Purchase: GEM 600");
-                IAPEvents?.Invoke();
-            }
-
-            if (purchasedProduct.definition.id == GEM_1000)
-            {
-                Debug.Log("Purchase: GEM 1000");
-                IAPEvents?.Invoke();
-            }
-
-            if (purchasedProduct.definition.id == GEM_2600)
-            {
-                Debug.Log("Purchase: GEM 2600");
-                IAPEvents?.Invoke();
-            }
-
-            if (purchasedProduct.definition.id == GEM_5000)
-            {
-                Debug.Log("Purchase: GEM 5000");
-                IAPEvents?.Invoke();
-            }
-
-            if (purchasedProduct.definition.id == NO_ADS)
-            {
-
+                if (result.productId == purchasedProduct.definition.id)
+                {
+                    IAPEvents?.Invoke();
+                    Debug.Log("Purchase: " + purchasedProduct.definition.id);
+                }
             }
 
             IAPEvents.RemoveAllListeners();
@@ -198,5 +180,17 @@ namespace IAP
         {
             Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureDescription));
         }
+    }
+}
+
+public class InAppProduct
+{
+    public string productId;
+    public ProductType type;
+
+    public InAppProduct(string productId, ProductType type)
+    {
+        this.productId = productId;
+        this.type = type;
     }
 }
