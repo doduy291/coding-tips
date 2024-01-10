@@ -9,6 +9,11 @@ public class RemoteConfigManager : MonoBehaviour
     public static RemoteConfigManager Instance { get; private set; }
     public struct userAttributes { }
     public struct appAttributes { }
+    public struct filterAttributes
+    {
+        // Optionally declare variables for attributes to filter on any of following parameters:
+        public string[] key;
+    }
 
     private string enviromentId = "xxxxx-xxx-xxxx-xxxx-ab265bfcdbea";
 
@@ -46,10 +51,15 @@ public class RemoteConfigManager : MonoBehaviour
             await InitializeRemoteConfigAsync();
         }
 
+        // Attribute Configs
+        // Select the keys that need to get to prevent fetching the whole data
+        var fAttributes = new filterAttributes();
+        fAttributes.key = new string[] { "shop-data", "is_Active" };
+
         // Configs
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteSettings;
         RemoteConfigService.Instance.SetEnvironmentID(enviromentId);
-        await RemoteConfigService.Instance.FetchConfigsAsync(new userAttributes(), new appAttributes());
+        await RemoteConfigService.Instance.FetchConfigsAsync(new userAttributes(), new appAttributes(), fAttributes);
     }
 
     void ApplyRemoteSettings(ConfigResponse configResponse)
