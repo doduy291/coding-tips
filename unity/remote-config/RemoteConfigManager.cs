@@ -72,14 +72,17 @@ public class RemoteConfigManager : MonoBehaviour
     // Other types (int, float,...) is same
     public static bool GetBool(string key, bool defaultValue = false)
     {
-        RemoteConfigService.Instance.FetchConfigsAsync(new userAttributes(), new appAttributes());
         return RemoteConfigService.Instance.appConfig.GetBool(key, defaultValue);
     }
-
 
     public static string GetJson(string key, string defaultValue = "{}")
     {
         return RemoteConfigService.Instance.appConfig.GetJson(key, defaultValue);
     }
 
+    public static string CheckNewVersion(string key)
+    {
+        RemoteConfigService.Instance.FetchConfigsAsync(new userAttributes(), new appAttributes());
+        return RemoteConfigService.Instance.appConfig.GetString(key);
+    }
 }

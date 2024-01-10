@@ -3,4 +3,4 @@
 
 ### Packages (Optional)
 
-I use [NewtonSoft](https://github.com/applejag/Newtonsoft.Json-for-Unity) to convert string to Json type. It can replace with other ways
+I use [NewtonSoft](https://github.com/applejag/Newtonsoft.Json-for-Unity) to convert string to Json type. It can be used by alternative ways.
