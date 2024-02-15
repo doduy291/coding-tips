@@ -46,7 +46,15 @@ namespace IAP
             {"p5", new InAppProduct("p5", ProductType.Consumable)},
             {"p6", new InAppProduct("p6", ProductType.Consumable)},
         };
-
+        
+        /* Shorter Way */
+        public static Dictionary<string, ProductType> shorterInAppProducts = new Dictionary<string, ProductType>() {
+            {"cash_1", ProductType.Consumable},
+            {"cash_2", ProductType.Consumable},
+            {"cash_3", ProductType.Consumable},
+            {"pack_1", ProductType.Consumable},
+            {"pack_2", ProductType.Consumable},
+        };
 
         public UnityEvent IAPEvents;
 
@@ -83,6 +91,12 @@ namespace IAP
                 InAppProduct IAPValue = inAppProducts[key];
                 builder.AddProduct(IAPValue.productId, IAPValue.type);
             }
+
+            /* Shorter Way */
+            // foreach (KeyValuePair<string, ProductType> kvp in shorterInAppProducts)
+            // {
+            //     builder.AddProduct(kvp.Key, kvp.Value);
+            // }
 
             UnityPurchasing.Initialize(this, builder);
         }
@@ -172,6 +186,13 @@ namespace IAP
                     Debug.Log("Purchase: " + purchasedProduct.definition.id);
                 }
             }
+            
+            /* Shorter Way */
+            // if (shorterInAppProducts.ContainsKey(purchasedProduct.definition.id))
+            // {
+            //     IAPEvents?.Invoke();
+            //     Debug.Log("Purchase: " + purchasedProduct.definition.id);
+            // }
 
             IAPEvents.RemoveAllListeners();
             Debug.Log(string.Format("ProcessPurchase: Complete. Product:" + args.purchasedProduct.definition.id + " - " + purchasedProduct.transactionID.ToString()));
