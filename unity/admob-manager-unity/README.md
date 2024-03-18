@@ -47,5 +47,25 @@ Try following the below steps:
 
 ## Usage
 
-- (old)
-- (new)
+### For Admob-v2 folder
+
+1. Create a new GameObject and add component `GoogleAdmobController.cs` and `AdmobManager.cs`
+2. Rewarded Ad Usage
+
+```js
+# Dont forget to add callback into event to get rewards after closing rewarded ad
+public void UseRewardedAd(RewardedAdController.OnRewardedAdHandle method)
+{
+  RewardedAdController.ShowAd();
+  RewardedAdController.rewardedAdEvent += method;
+}
+```
+
+3. Interstitial Ad Usage
+
+```js
+# Most mobile games does not get any rewards after closing Interstitial Ad, so I am not using callback
+public void UseInterstitialAd() {
+  InterstitialAdController.ShowAd();
+}
+```

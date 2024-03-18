@@ -5,8 +5,6 @@ using GoogleMobileAds.Api;
 [AddComponentMenu("GoogleMobileAds/Samples/InterstitialAdController")]
 public class InterstitialAdController : MonoBehaviour
 {
-    public bool _isInterstitialAdLoaded;
-
     // These ad units are configured to always serve test ads.
 #if UNITY_ANDROID
     private const string _adUnitId = "ca-app-pub-3940256099942544/1033173712";
@@ -16,12 +14,12 @@ public class InterstitialAdController : MonoBehaviour
         private const string _adUnitId = "unused";
 #endif
 
-    private InterstitialAd _interstitialAd;
+    private static InterstitialAd _interstitialAd;
 
     /// <summary>
     /// Loads the ad.
     /// </summary>
-    public void RequestAndLoadInterstitialAd()
+    public static void RequestAndLoadInterstitialAd()
     {
         // Clean up the old ad before loading a new one.
         if (_interstitialAd != null)
@@ -40,7 +38,6 @@ public class InterstitialAdController : MonoBehaviour
             // If the operation failed with a reason.
             if (error != null)
             {
-                _isInterstitialAdLoaded = false;
                 Debug.LogError("Interstitial ad failed to load an ad with error : " + error);
                 return;
             }
@@ -48,7 +45,6 @@ public class InterstitialAdController : MonoBehaviour
             // This is an unexpected error, please report this bug if it happens.
             if (ad == null)
             {
-                _isInterstitialAdLoaded = false;
                 Debug.LogError("Unexpected error: Interstitial load event fired with null ad and null error.");
                 return;
             }
@@ -56,7 +52,6 @@ public class InterstitialAdController : MonoBehaviour
             // The operation completed successfully.
             Debug.Log("Interstitial ad loaded with response : " + ad.GetResponseInfo());
             _interstitialAd = ad;
-            _isInterstitialAdLoaded = true;
 
             // Register to ad events to extend functionality.
             RegisterEventHandlers(ad);
@@ -66,7 +61,7 @@ public class InterstitialAdController : MonoBehaviour
     /// <summary>
     /// Shows the ad.
     /// </summary>
-    public void ShowAd()
+    public static void ShowAd()
     {
         if (_interstitialAd != null && _interstitialAd.CanShowAd())
         {
@@ -82,7 +77,7 @@ public class InterstitialAdController : MonoBehaviour
     /// <summary>
     /// Destroys the ad.
     /// </summary>
-    public void DestroyAd()
+    public static void DestroyAd()
     {
         if (_interstitialAd != null)
         {
@@ -104,7 +99,7 @@ public class InterstitialAdController : MonoBehaviour
         }
     }
 
-    private void RegisterEventHandlers(InterstitialAd ad)
+    private static void RegisterEventHandlers(InterstitialAd ad)
     {
         // Raised when the ad is estimated to have earned money.
         ad.OnAdPaid += (AdValue adValue) =>
@@ -141,5 +136,10 @@ public class InterstitialAdController : MonoBehaviour
             Debug.LogError("Interstitial ad failed to open full screen content with error : "
                 + error);
         };
+    }
+
+    public static bool IsAvailableAd()
+    {
+        return _interstitialAd != null && _interstitialAd.CanShowAd();
     }
 }

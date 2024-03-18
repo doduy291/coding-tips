@@ -6,8 +6,6 @@ using Collection;
 [AddComponentMenu("GoogleMobileAds/Samples/RewardedAdController")]
 public class RewardedAdController : MonoBehaviour
 {
-    public bool _isRewardedAdLoaded;
-
     // These ad units are configured to always serve test ads.
 #if UNITY_ANDROID
     private const string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
@@ -17,12 +15,16 @@ public class RewardedAdController : MonoBehaviour
         private const string _adUnitId = "unused";
 #endif
 
-    private RewardedAd _rewardedAd;
+    private static RewardedAd _rewardedAd;
+
+    // Event for callback
+    public delegate void OnRewardedAdHandle();
+    public static event OnRewardedAdHandle rewardedAdEvent;
 
     /// <summary>
     /// Loads the ad.
     /// </summary>
-    public void RequestAndLoadRewardedAd()
+    public static void RequestAndLoadRewardedAd()
     {
         // Clean up the old ad before loading a new one.
         if (_rewardedAd != null)
@@ -41,7 +43,6 @@ public class RewardedAdController : MonoBehaviour
             // If the operation failed with a reason.
             if (error != null)
             {
-                _isRewardedAdLoaded = false;
                 Debug.LogError("Rewarded ad failed to load an ad with error : " + error);
                 return;
             }
@@ -49,7 +50,6 @@ public class RewardedAdController : MonoBehaviour
             // This is an unexpected error, please report this bug if it happens.
             if (ad == null)
             {
-                _isRewardedAdLoaded = false;
                 Debug.LogError("Unexpected error: Rewarded load event fired with null ad and null error.");
                 return;
             }
@@ -57,7 +57,6 @@ public class RewardedAdController : MonoBehaviour
             // The operation completed successfully.
             Debug.Log("Rewarded ad loaded with response : " + ad.GetResponseInfo());
             _rewardedAd = ad;
-            _isRewardedAdLoaded = true;
 
             // Register to ad events to extend functionality.
             RegisterEventHandlers(ad);
@@ -67,8 +66,11 @@ public class RewardedAdController : MonoBehaviour
     /// <summary>
     /// Shows the ad.
     /// </summary>
-    public void ShowAd()
+    public static void ShowAd()
     {
+        // Clear event
+        rewardedAdEvent = delegate { };
+
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
             Debug.Log("Showing rewarded ad.");
@@ -83,20 +85,23 @@ public class RewardedAdController : MonoBehaviour
     /// <summary>
     /// Destroys the ad.
     /// </summary>
-    public void DestroyAd()
+    public static void DestroyAd()
     {
         if (_rewardedAd != null)
         {
             Debug.Log("Destroying rewarded ad.");
             _rewardedAd.Destroy();
             _rewardedAd = null;
+
+            // Clear Rewarded Ad Event
+            rewardedAdEvent = delegate { };
         }
     }
 
     /// <summary>
     /// Logs the ResponseInfo.
     /// </summary>
-    public void LogResponseInfo()
+    public static void LogResponseInfo()
     {
         if (_rewardedAd != null)
         {
@@ -105,7 +110,7 @@ public class RewardedAdController : MonoBehaviour
         }
     }
 
-    private void RegisterEventHandlers(RewardedAd ad)
+    private static void RegisterEventHandlers(RewardedAd ad)
     {
         // Raised when the ad is estimated to have earned money.
         ad.OnAdPaid += (AdValue adValue) =>
@@ -115,46 +120,30 @@ public class RewardedAdController : MonoBehaviour
                 adValue.CurrencyCode));
         };
         // Raised when an impression is recorded for an ad.
-        ad.OnAdImpressionRecorded += () =>
-        {
-            Debug.Log("Rewarded ad recorded an impression.");
-        };
+        ad.OnAdImpressionRecorded += () => { Debug.Log("Rewarded ad recorded an impression."); };
         // Raised when a click is recorded for an ad.
-        ad.OnAdClicked += () =>
-        {
-            Debug.Log("Rewarded ad was clicked.");
-        };
+        ad.OnAdClicked += () => { Debug.Log("Rewarded ad was clicked."); };
         // Raised when the ad opened full screen content.
         ad.OnAdFullScreenContentOpened += () =>
         {
+            
             Debug.Log("Rewarded ad full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        ad.OnAdFullScreenContentClosed += () =>
+        {                
+            rewardedAdEvent?.Invoke();
+            RequestAndLoadRewardedAd()
+        };
+        // Raised when the ad failed to open full screen content.
+        ad.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            RequestAndLoadRewardedAd()
         };
     }
 
-    public void RegisterRewardedAdCustomHandlers(RewardedAdType rewardAdType, Action callback)
+    public static bool IsAvailableAd()
     {
-        if (_rewardedAd != null)
-        {
-            // Raised when the ad closed full screen content.
-            _rewardedAd.OnAdFullScreenContentClosed += () =>
-            {
-                if (rewardAdType == RewardedAdType.BoostCoin)
-                {
-                    callback();
-                    RequestAndLoadRewardedAd();
-                }
-            };
-
-            // Raised when the ad failed to open full screen content.
-            _rewardedAd.OnAdFullScreenContentFailed += (AdError error) =>
-            {
-                if (rewardAdType == RewardedAdType.BoostCoin)
-                {
-                    callback();
-                    RequestAndLoadRewardedAd();
-                }
-            };
-
-        }
-    }
+        return _rewardedAd != null && _rewardedAd.CanShowAd();
+    } 
 }
