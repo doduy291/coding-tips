@@ -4,7 +4,7 @@
 
 # Contents
 
-### The developer of androidx.fragment:fragment (androidx.fragment:fragment) has reported version 1.0.0 as outdated. Consider upgrading to one of the following versions before publishing a new release: 1.1.0+.
+### #Warning 1: The developer of androidx.fragment:fragment (androidx.fragment:fragment) has reported version 1.0.0 as outdated. Consider upgrading to one of the following versions before publishing a new release: 1.1.0+.
 
 1. Open **Project Settings** > **Player** > Android Tab > **Publishing Settings** > Enable **Custom Main Gradle Template**.
 2. Open your gradle file at path `<PROJECT_FOLDER>\Assets\Plugins\Android\mainTemplate.gradle` and supplement newer version (For example: mine is `1.2.5`).
@@ -16,7 +16,7 @@ dependencies {
 **DEPS**}
 ```
 
-### There is no deobfuscation file associated with this App Bundle. If you use obfuscated code (R8/proguard), uploading a deobfuscation file will make crashes and ANRs easier to analyze and debug. Using R8/proguard can help reduce app size.
+### #Warning 2: There is no deobfuscation file associated with this App Bundle. If you use obfuscated code (R8/proguard), uploading a deobfuscation file will make crashes and ANRs easier to analyze and debug. Using R8/proguard can help reduce app size.
 
 1. Open **Project Settings** > **Player** > **Android** Tab > **Publishing Settings** > Enable **Custom Launcher Gradle Template**, **Use R8** and **Release**.
 
@@ -77,6 +77,6 @@ android {
 }
 ```
 
-### This App Bundle contains native code, and you've not uploaded debug symbols. We recommend you upload a symbol file to make your crashes and ANRs easier to analyze and debug.
+### #Warning 3: This App Bundle contains native code, and you've not uploaded debug symbols. We recommend you upload a symbol file to make your crashes and ANRs easier to analyze and debug.
 
 Tutorial: https://www.youtube.com/watch?v=UXl_C3ZnRLc&ab_channel=CocoCode
