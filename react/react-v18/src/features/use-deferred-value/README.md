@@ -1,1 +1,2 @@
-Use useDeferredValue when we don't have control over the state call, like sample in features/use-deferred-value/ProdcutList.tsx
+- Use useDeferredValue let you defer updating a part of the UI (also re-rendering), like sample in **features/use-deferred-value/ProdcutList.tsx**
+- It is similar to debouncing but has a few advantages compared to it. There is no fixed time delay, so React will attempt the deferred render right after the first render is reflected on the screen. The deferred render is interruptible and doesn’t block user input.
